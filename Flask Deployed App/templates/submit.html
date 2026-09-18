@@ -15,12 +15,24 @@ Diagnostic Result - {{title}}
         </div>
         <div>
             {% if pred in [3, 5, 7, 11, 15, 18, 20, 23, 24, 25, 28, 38] %}
-                <span class="badge-status badge-healthy"><i class="fa-solid fa-circle-check"></i> Healthy Plant</span>
+                <span class="badge-status badge-healthy"><i class="fa-solid fa-circle-check"></i> Healthy Plant ({{confidence}}% Match)</span>
             {% else %}
-                <span class="badge-status badge-diseased"><i class="fa-solid fa-triangle-exclamation"></i> Disease Detected</span>
+                <span class="badge-status badge-diseased"><i class="fa-solid fa-triangle-exclamation"></i> Disease Detected ({{confidence}}% Match)</span>
             {% endif %}
         </div>
     </div>
+
+    {% if confidence < 60 %}
+    <div style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: var(--radius-md); padding: 1.25rem 1.5rem; margin-bottom: 2rem; display: flex; align-items: flex-start; gap: 1rem;">
+        <i class="fa-solid fa-triangle-exclamation" style="color: #fbbf24; font-size: 1.5rem; margin-top: 0.15rem;"></i>
+        <div>
+            <h5 style="color: #fbbf24; font-size: 1.05rem; margin-bottom: 0.35rem; font-weight: 600;">Low Confidence Detection ({{confidence}}%)</h5>
+            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin: 0;">
+                The AI is uncertain about this leaf. This usually occurs if the leaf belongs to an <strong>unsupported tree/plant species</strong> or if the photo was taken with multiple leaves or a cluttered background. The model is trained to recognize <strong>14 specific plant species</strong> (Apple, Blueberry, Cherry, Corn, Grape, Orange, Peach, Bell Pepper, Potato, Raspberry, Soybean, Squash, Strawberry, Tomato).
+            </p>
+        </div>
+    </div>
+    {% endif %}
 
     <!-- Main Results Layout -->
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-bottom: 2rem;">

@@ -26,6 +26,19 @@ AI Engine - PlantCare AI
                 Upload Plant Leaf Image
             </h3>
 
+            <!-- Supported Crops Badge Bar -->
+            <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: var(--radius-sm); padding: 0.85rem 1.25rem; margin-bottom: 1.5rem;">
+                <div style="font-size: 0.85rem; font-weight: 600; color: var(--accent); margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                    <i class="fa-solid fa-leaf"></i> 14 Supported Plant & Tree Species:
+                </div>
+                <div style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+                    Apple • Blueberry • Cherry • Corn (Maize) • Grape • Orange • Peach • Bell Pepper • Potato • Raspberry • Soybean • Squash • Strawberry • Tomato
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-dim); margin-top: 0.3rem;">
+                    <em>Tip: For optimal recognition, photograph a single leaf close-up on a plain background.</em>
+                </div>
+            </div>
+
             <form action="/submit" method="POST" enctype="multipart/form-data" id="upload-form">
                 <div class="dropzone-container" id="drop-area">
                     <input type="file" id="actual-btn" name="image" accept="image/*" required style="display: none;">

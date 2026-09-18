@@ -1,6 +1,6 @@
 import os
 from flask import Flask, redirect, render_template, request, url_for
-from PIL import Image
+from PIL import Image, ImageOps
 import torchvision.transforms.functional as TF
 import CNN
 import numpy as np
@@ -22,14 +22,21 @@ model.eval()
 
 def prediction(image_path):
     image = Image.open(image_path)
+    # Auto-orient smartphone photos based on EXIF metadata
+    try:
+        image = ImageOps.exif_transpose(image)
+    except Exception:
+        pass
+    # Ensure RGB mode (prevents shape errors on RGBA PNGs or Grayscale)
+    image = image.convert('RGB')
     image = image.resize((224, 224))
     input_data = TF.to_tensor(image)
     input_data = input_data.view((-1, 3, 224, 224)).to(device)
     with torch.no_grad():
         output = model(input_data)
-    output = output.cpu().detach().numpy()
-    index = np.argmax(output)
-    return index
+        probabilities = torch.softmax(output, dim=1)
+        conf_val, pred_val = torch.max(probabilities, dim=1)
+    return pred_val.item(), conf_val.item() * 100
 
 
 app = Flask(__name__)
@@ -60,9 +67,9 @@ def submit():
         file_path = os.path.join(upload_dir, filename)
         image.save(file_path)
         print(file_path)
-        pred = prediction(file_path)
+        pred, confidence = prediction(file_path)
         title = disease_info['disease_name'][pred]
-        description =disease_info['description'][pred]
+        description = disease_info['description'][pred]
         prevent = disease_info['Possible Steps'][pred]
         image_url = disease_info['image_url'][pred]
         supplement_name = supplement_info['supplement name'][pred]
@@ -70,7 +77,9 @@ def submit():
         supplement_buy_link = supplement_info['buy link'][pred]
         user_image = url_for('static', filename='uploads/' + filename)
         return render_template('submit.html', title=title, desc=description, prevent=prevent, 
-                               image_url=image_url, user_image=user_image, pred=pred, sname=supplement_name, simage=supplement_image_url, buy_link=supplement_buy_link)
+                               image_url=image_url, user_image=user_image, pred=pred,
+                               confidence=round(confidence, 1),
+                               sname=supplement_name, simage=supplement_image_url, buy_link=supplement_buy_link)
 
 @app.route('/market', methods=['GET', 'POST'])
 def market():
