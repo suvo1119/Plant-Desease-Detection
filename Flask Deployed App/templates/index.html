@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+{% block pagetitle %}
+AI Engine - PlantCare AI
+{% endblock pagetitle %}
+
+{% block body %}
+<div style="max-width: 1100px; margin: 0 auto;">
+    <!-- Page Header -->
+    <div style="text-align: center; margin-bottom: 3rem;">
+        <div class="hero-badge">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Artificial Intelligence Diagnosis
+        </div>
+        <h1 style="font-size: 2.5rem; margin-bottom: 0.75rem;">Plant Disease AI Engine</h1>
+        <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 650px; margin: 0 auto;">
+            Upload or capture a clear photo of your plant leaf. Our trained Deep Learning CNN will identify the exact disease and recommend remedies.
+        </p>
+    </div>
+
+    <!-- Main Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; align-items: start;">
+        
+        <!-- Upload Card -->
+        <div class="glass-card" style="grid-column: span 1 / -1;">
+            <h3 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+                <i class="fa-solid fa-cloud-arrow-up" style="color: var(--accent);"></i>
+                Upload Plant Leaf Image
+            </h3>
+
+            <form action="/submit" method="POST" enctype="multipart/form-data" id="upload-form">
+                <div class="dropzone-container" id="drop-area">
+                    <input type="file" id="actual-btn" name="image" accept="image/*" required style="display: none;">
+                    
+                    <div id="dropzone-default">
+                        <i class="fa-solid fa-cloud-arrow-up dropzone-icon"></i>
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: #fff;">Drag & Drop your image here</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">Supports JPG, PNG, JPEG formats</p>
+                        
+                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                            <label for="actual-btn" class="btn-primary-custom" style="margin: 0; cursor: pointer;">
+                                <i class="fa-solid fa-file-image"></i> Browse File
+                            </label>
+                            <button type="button" class="btn-secondary-custom" id="camera-btn">
+                                <i class="fa-solid fa-camera"></i> Use Camera
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Image Preview Area -->
+                    <div class="preview-container" id="preview-wrapper">
+                        <img id="image-preview" src="#" alt="Leaf Preview">
+                        <div style="padding: 0.75rem; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: space-between;">
+                            <span id="file-name-display" style="font-size: 0.85rem; color: var(--accent); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;"></span>
+                            <button type="button" id="remove-img-btn" style="background: transparent; border: none; color: #f87171; cursor: pointer; font-size: 1rem;" title="Remove image">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Camera Container Modal -->
+                <div id="camera-container" style="display: none; margin-top: 1.5rem; text-align: center; background: rgba(0,0,0,0.5); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-glass);">
+                    <video id="camera-feed" style="width: 100%; max-width: 450px; height: auto; border-radius: var(--radius-sm); border: 2px solid var(--border-accent);" autoplay playsinline></video>
+                    <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center;">
+                        <button type="button" class="btn-primary-custom" id="capture-btn">
+                            <i class="fa-solid fa-circle-dot"></i> Capture Photo
+                        </button>
+                        <button type="button" class="btn-secondary-custom" id="close-camera-btn">
+                            <i class="fa-solid fa-xmark"></i> Cancel
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div style="margin-top: 2rem; text-align: center;">
+                    <button type="submit" class="btn-primary-custom" id="submit-btn" style="width: 100%; max-width: 350px; font-size: 1.1rem; padding: 1rem 2rem;">
+                        <i class="fa-solid fa-microscope"></i> Analyze Leaf Image
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Info Card 1: Importance -->
+        <div class="glass-card">
+            <h4 style="margin-bottom: 1rem; color: var(--accent); display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fa-solid fa-circle-info"></i> Why Detect Disease Early?
+            </h4>
+            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
+                Plant diseases cause significant yield reduction if undetected. Proper identification of the disease-causing agent ensures targeted treatment, saving time, money, and preventing spread across your entire garden or field.
+            </p>
+        </div>
+
+        <!-- Info Card 2: Prevention Tips -->
+        <div class="glass-card">
+            <h4 style="margin-bottom: 1rem; color: var(--accent-gold); display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fa-solid fa-shield-halved"></i> 7 Essential Prevention Steps
+            </h4>
+            <ul style="color: var(--text-muted); font-size: 0.95rem; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.4rem;">
+                <li>Practice good garden sanitation & cleanup</li>
+                <li>Fertilize appropriately for strong immunity</li>
+                <li>Inspect new nursery plants carefully</li>
+                <li>Allow soil to warm before planting</li>
+                <li>Rotate annual crop families every season</li>
+                <li>Ensure good air circulation between plants</li>
+                <li>Promptly remove diseased stems & foliage</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Upload Interactive Script -->
+<script>
+    const fileInput = document.getElementById('actual-btn');
+    const dropArea = document.getElementById('drop-area');
+    const dropzoneDefault = document.getElementById('dropzone-default');
+    const previewWrapper = document.getElementById('preview-wrapper');
+    const imagePreview = document.getElementById('image-preview');
+    const fileNameDisplay = document.getElementById('file-name-display');
+    const removeImgBtn = document.getElementById('remove-img-btn');
+    const cameraBtn = document.getElementById('camera-btn');
+    const cameraContainer = document.getElementById('camera-container');
+    const cameraFeed = document.getElementById('camera-feed');
+    const captureBtn = document.getElementById('capture-btn');
+    const closeCameraBtn = document.getElementById('close-camera-btn');
+    let mediaStream = null;
+
+    // File Selected Handler
+    function handleFile(file) {
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imagePreview.src = e.target.result;
+                fileNameDisplay.textContent = file.name;
+                dropzoneDefault.style.display = 'none';
+                previewWrapper.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    fileInput.addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            handleFile(this.files[0]);
+        }
+    });
+
+    // Drag & Drop Handling
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            dropArea.classList.add('dragover');
+        });
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            dropArea.classList.remove('dragover');
+        });
+    });
+
+    dropArea.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        if (files && files[0]) {
+            fileInput.files = files;
+            handleFile(files[0]);
+        }
+    });
+
+    // Remove Image
+    removeImgBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        fileInput.value = '';
+        imagePreview.src = '#';
+        previewWrapper.style.display = 'none';
+        dropzoneDefault.style.display = 'block';
+    });
+
+    // Camera Access
+    cameraBtn.addEventListener('click', async () => {
+        cameraContainer.style.display = 'block';
+        try {
+            mediaStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+            cameraFeed.srcObject = mediaStream;
+        } catch (err) {
+            alert('Unable to access camera: ' + err.message);
+            cameraContainer.style.display = 'none';
+        }
+    });
+
+    closeCameraBtn.addEventListener('click', () => {
+        if (mediaStream) {
+            mediaStream.getTracks().forEach(track => track.stop());
+        }
+        cameraContainer.style.display = 'none';
+    });
+
+    captureBtn.addEventListener('click', () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = cameraFeed.videoWidth || 640;
+        canvas.height = cameraFeed.videoHeight || 480;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(cameraFeed, 0, 0, canvas.width, canvas.height);
+        
+        canvas.toBlob((blob) => {
+            const capturedFile = new File([blob], 'camera_capture.jpg', { type: 'image/jpeg' });
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(capturedFile);
+            fileInput.files = dataTransfer.files;
+            
+            handleFile(capturedFile);
+            
+            if (mediaStream) {
+                mediaStream.getTracks().forEach(track => track.stop());
+            }
+            cameraContainer.style.display = 'none';
+        }, 'image/jpeg');
+    });
+
+    // Animated Loading State on Form Submit
+    document.getElementById('upload-form').addEventListener('submit', function() {
+        const submitBtn = document.getElementById('submit-btn');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Analyzing Leaf with AI...';
+    });
+</script>
+{% endblock body %}

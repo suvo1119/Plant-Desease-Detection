@@ -1,0 +1,31 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Large dataset directory
+archive/
+
+# Temporary uploads (keep folder structure via Readme.md)
+Flask Deployed App/static/uploads/*.jpg
+Flask Deployed App/static/uploads/*.JPG
+Flask Deployed App/static/uploads/*.jpeg
+Flask Deployed App/static/uploads/*.png
+!Flask Deployed App/static/uploads/Readme.md
+
+# Large model checkpoints (optional if tracked via git-lfs or downloaded)
+*.pt.bak
+*.ckpt
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

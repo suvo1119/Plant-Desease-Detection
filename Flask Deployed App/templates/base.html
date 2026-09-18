@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block pagetitle %}Plant Disease Detection{% endblock pagetitle %}</title>
+
+    <!-- Google Fonts & Font Awesome 6 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Glassmorphic Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar-custom">
+        <div class="navbar-container">
+            <a href="/" class="brand-logo">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-leaf"></i>
+                </div>
+                <span>PlantCare AI</span>
+            </a>
+
+            <button class="mobile-toggle" id="mobile-toggle-btn" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <ul class="nav-links" id="nav-links-menu">
+                <li>
+                    <a class="nav-link-item {% if request.path == '/' %}active{% endif %}" href="/">
+                        <i class="fa-solid fa-house"></i> Home
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link-item {% if request.path == '/index' %}active{% endif %}" href="/index">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> AI Engine
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link-item {% if request.path == '/market' %}active{% endif %}" href="/market">
+                        <i class="fa-solid fa-store"></i> Supplements
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link-item {% if request.path == '/contact' %}active{% endif %}" href="/contact">
+                        <i class="fa-solid fa-address-card"></i> Contact Us
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-wrapper">
+        {% block body %}
+        {% endblock body %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-custom">
+        <div class="footer-container">
+            <div>
+                <div class="brand-logo" style="margin-bottom: 1rem;">
+                    <div class="brand-icon">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+                    <span>PlantCare AI</span>
+                </div>
+                <p style="font-size: 0.95rem; max-width: 320px;">
+                    Empowering farmers and plant enthusiasts with state-of-the-art Deep Learning models to detect crop diseases instantly and accurately.
+                </p>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 1rem; color: #fff;">Quick Links</h4>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+                    <li><a href="/"><i class="fa-solid fa-chevron-right" style="font-size: 0.75rem;"></i> Home</a></li>
+                    <li><a href="/index"><i class="fa-solid fa-chevron-right" style="font-size: 0.75rem;"></i> AI Disease Engine</a></li>
+                    <li><a href="/market"><i class="fa-solid fa-chevron-right" style="font-size: 0.75rem;"></i> Supplement Store</a></li>
+                    <li><a href="/contact"><i class="fa-solid fa-chevron-right" style="font-size: 0.75rem;"></i> Developer Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 1rem; color: #fff;">Connect With Us</h4>
+                <p style="font-size: 0.9rem; margin-bottom: 0.75rem;">Have questions or feedback about our AI model?</p>
+                <div class="footer-social-links">
+                    <a href="https://github.com/suvo1119" target="_blank" class="social-icon-btn" title="GitHub Repository"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-bar">
+            <p>&copy; 2026 PlantCare AI Engine &bull; Developed by Suvadip Mondal</p>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const mobileBtn = document.getElementById('mobile-toggle-btn');
+        const navLinks = document.getElementById('nav-links-menu');
+        
+        if (mobileBtn && navLinks) {
+            mobileBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = mobileBtn.querySelector('i');
+                if (navLinks.classList.contains('active')) {
+                    icon.className = 'fa-solid fa-xmark';
+                } else {
+                    icon.className = 'fa-solid fa-bars';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

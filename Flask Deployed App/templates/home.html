@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% block pagetitle %}
+Home - PlantCare AI
+{% endblock pagetitle %}
+
+{% block body %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-badge">
+        <i class="fa-solid fa-microchip"></i> Powered by Deep Learning CNNs
+    </div>
+    <h1 class="hero-title">Instant Plant Disease Detection & Care</h1>
+    <p class="hero-subtitle">
+        Protect your crops with AI. Simply upload an image of a plant leaf to diagnose 38+ plant diseases across 14 fruit & vegetable species in seconds.
+    </p>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="/index" class="btn-primary-custom">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Launch AI Engine
+        </a>
+        <a href="/market" class="btn-secondary-custom">
+            <i class="fa-solid fa-store"></i> Explore Supplements
+        </a>
+    </div>
+</section>
+
+<!-- Features Highlight Cards -->
+<section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 4rem;">
+    <div class="glass-card" style="text-align: center;">
+        <div style="width: 56px; height: 56px; background: rgba(16, 185, 129, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; color: var(--accent); font-size: 1.5rem;">
+            <i class="fa-solid fa-bolt"></i>
+        </div>
+        <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Instant Analysis</h3>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">Receive detailed diagnostic results and confidence predictions within milliseconds.</p>
+    </div>
+    <div class="glass-card" style="text-align: center;">
+        <div style="width: 56px; height: 56px; background: rgba(52, 211, 153, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; color: var(--accent); font-size: 1.5rem;">
+            <i class="fa-solid fa-layer-group"></i>
+        </div>
+        <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">39 Classifications</h3>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">Trained on thousands of leaves across healthy states and complex viral/bacterial blights.</p>
+    </div>
+    <div class="glass-card" style="text-align: center;">
+        <div style="width: 56px; height: 56px; background: rgba(251, 191, 36, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; color: var(--accent-gold); font-size: 1.5rem;">
+            <i class="fa-solid fa-prescription-bottle-medical"></i>
+        </div>
+        <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Targeted Treatments</h3>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">Get actionable prevention steps and recommended supplements tailored specifically to the diagnosed disease.</p>
+    </div>
+</section>
+
+<!-- Supported Crops Section -->
+<section>
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Supported Crops & Species</h2>
+        <p style="color: var(--text-muted);">Our Convolutional Neural Network accurately detects disease patterns across these 14 plant varieties:</p>
+    </div>
+
+    <div class="crop-grid">
+        <div class="crop-card">
+            <div class="crop-image-wrapper">
+                <img src="{{ url_for('static', filename='images/crops/apple.jpg') }}" alt="Apple" class="crop-image">
+            </div>
+            <div class="crop-name">Apple</div>
+        </div>
+        <div class="crop-card">
+            <div class="crop-image-wrapper">
+                <img src="{{ url_for('static', filename='images/crops/blueberry.jpg') }}" alt="Blueberry" class="crop-image">
+            </div>
+            <div class="crop-name">Blueberry</div>
+        </div>
+        <div class="crop-card">
+            <div class="crop-image-wrapper">
+                <img src="{{ url_for('static', filename='images/crops/cherry.jpg') }}" alt="Cherry" class="crop-image">
+            </div>
+            <div class="crop-name">Cherry</div>
+        </div>
+        <div class="crop-card">
+            <div class="crop-image-wrapper">
+                <img src="{{ url_for('static', filename='images/crops/corn.jpg') }}" alt="Corn" class="crop-image">
+            </div>
+            <div class="crop-name">Corn</div>
+        </div>
+        <div class="crop-card">
+            <div class="crop-image-wrapper">
+                <img src="{{ url_for('static', filename='images/crops/grape.jpg') }}" alt="Grape" class="crop-image">
+            </div>
+            <div class="crop-name">Grape</div>
+        </div>
+        <div class="crop-card">
+            <div class="crop-image-wrapper">
+                <img src="{{ url_for('static', filename='images/crops/orange.jpg') }}" alt="Orange" class="crop-image">
+            </div>
+            <div class="crop-name">Orange</div>
+        </div>
+        <div class="crop-card">
+            <div class="crop-image-wrapper">
+                <img src="{{ url_for('static', filename='images/crops/peach.jpg') }}" alt="Peach" class="crop-image">
+            </div>
+            <div class="crop-name">Peach</div>
+        </div>
+        <div class="crop-card">
+            <div class="crop-image-wrapper">
+                <img src="{{ url_for('static', filename='images/crops/pepper.jpg') }}" alt="Pepper Bell" class="crop-image">
+            </div>
+            <div class="crop-name">Pepper Bell</div>
+        </div>
+        <div class="crop-card">
+            <div class="crop-image-wrapper">
+                <img src="{{ url_for('static', filename='images/crops/potato.jpg') }}" alt="Potato" class="crop-image">
+            </div>
+            <div class="crop-name">Potato</div>
+        </div>
+        <div class="crop-card">
+            <div class="crop-image-wrapper">
+                <img src="{{ url_for('static', filename='images/crops/raspberry.jpg') }}" alt="Raspberry" class="crop-image">
+            </div>
+            <div class="crop-name">Raspberry</div>
+        </div>
+        <div class="crop-card">
+            <div class="crop-image-wrapper">
+                <img src="{{ url_for('static', filename='images/crops/soybean.jpg') }}" alt="Soybean" class="crop-image">
+            </div>
+            <div class="crop-name">Soybean</div>
+        </div>
+        <div class="crop-card">
+            <div class="crop-image-wrapper">
+                <img src="{{ url_for('static', filename='images/crops/squash.jpg') }}" alt="Squash" class="crop-image">
+            </div>
+            <div class="crop-name">Squash</div>
+        </div>
+        <div class="crop-card">
+            <div class="crop-image-wrapper">
+                <img src="{{ url_for('static', filename='images/crops/strawberry.jpg') }}" alt="Strawberry" class="crop-image">
+            </div>
+            <div class="crop-name">Strawberry</div>
+        </div>
+        <div class="crop-card">
+            <div class="crop-image-wrapper">
+                <img src="{{ url_for('static', filename='images/crops/tomato.jpg') }}" alt="Tomato" class="crop-image">
+            </div>
+            <div class="crop-name">Tomato</div>
+        </div>
+    </div>
+</section>
+{% endblock body %}
+
