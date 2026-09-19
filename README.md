@@ -150,7 +150,7 @@ Test leaf images are provided in the `test_images/` directory:
 <img src="demo_images/3.png" alt="Results Page" width="100%">
 
 #### 4. Supplements & Remedy Marketplace
-<img src="demo_images/4.JPG" alt="Market" width="100%">
+<img src="demo_images/5.png" alt="Market" width="100%">
 
 ---
 
