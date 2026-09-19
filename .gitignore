@@ -1,31 +1,44 @@
-# Python bytecode
+# Python & Bytecode
 __pycache__/
 *.py[cod]
 *$py.class
+*.so
+.pytest_cache/
+.coverage
 
-# Environments
+# Environments & Virtual Envs
 .env
+.env.local
 .venv
 env/
 venv/
 ENV/
 
-# Large dataset directory
+# Node.js & Frontend Build Outputs
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+Flask Deployed App/dist/
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Large Datasets & Model Backups
 archive/
-
-# Temporary uploads (keep folder structure via Readme.md)
-Flask Deployed App/static/uploads/*.jpg
-Flask Deployed App/static/uploads/*.JPG
-Flask Deployed App/static/uploads/*.jpeg
-Flask Deployed App/static/uploads/*.png
-!Flask Deployed App/static/uploads/Readme.md
-
-# Large model checkpoints (optional if tracked via git-lfs or downloaded)
+dataset/
 *.pt.bak
 *.ckpt
 
-# IDE & OS
+# Uploaded User Files (preserve directory structure via Readme.md)
+Flask Deployed App/static/uploads/*
+!Flask Deployed App/static/uploads/Readme.md
+!Flask Deployed App/static/uploads/.gitkeep
+
+# IDEs & System Files
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
+*.swp
+*.swo
